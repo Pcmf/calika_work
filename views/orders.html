@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="text-center">
+        <h2 class="text-info">Listagem de Pedidos - {{clt.nome}}
+            <a class="btn btn-info pull-right" href="#!/newTema/{{clt.id}}"><i class="fa fa-plus"></i> Novo Tema</a>
+        </h2>
+        <span class="pull-right form-inline" style="margin-right: 100px">
+           <i class="fa fa-search text-info"></i>
+           <input type="text" ng-model="searchFilter" class="form-control" placeholder="Filtrar por..." >         
+       </span>        
+    </div>
+    <br/>
+    <!-- Tabela com a lista dos pedidos -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <table ng-table="paramsTable" class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Numero
+                                <a href="" ng-click="sort('ref')" class="sortDir text-danger" ng-class="{ active: isSorted('ref') }">&#x25B2;</a>
+                                <a href="" ng-click="sort('-ref')" class="sortDir text-danger" ng-class="{ active: isSorted('-ref' ) }">&#x25BC;</a>                            
+                            </th>
+                            <th>Ref do Cliente
+                                <a href="" ng-click="sort('refCliente')" class="sortDir text-danger" ng-class="{ active: isSorted('refCliente') }">&#x25B2;</a>
+                                <a href="" ng-click="sort('-refCliente')" class="sortDir text-danger" ng-class="{ active: isSorted('-refCliente' ) }">&#x25BC;</a>                            
+                            </th>
+                            <th>Tema
+                                <a href="" ng-click="sort('tema')" class="sortDir text-danger" ng-class="{ active: isSorted('tema') }">&#x25B2;</a>
+                                <a href="" ng-click="sort('-tema')" class="sortDir text-danger" ng-class="{ active: isSorted('-tema' ) }">&#x25BC;</a>                            
+                            </th>
+                            <th>Data do Pedido
+                                <a href="" ng-click="sort('dataPedido')" class="sortDir text-danger" ng-class="{ active: isSorted('dataPedido') }">&#x25B2;</a>
+                                <a href="" ng-click="sort('-dataPedido')" class="sortDir text-danger" ng-class="{ active: isSorted('-dataPedido' ) }">&#x25BC;</a>                 
+                            </th>
+                            <th>Estado
+                                <a href="" ng-click="sort('status')" class="sortDir text-danger" ng-class="{ active: isSorted('status') }">&#x25B2;</a>
+                                <a href="" ng-click="sort('-status')" class="sortDir text-danger" ng-class="{ active: isSorted('-status' ) }">&#x25BC;</a>                 
+                            </th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="p in $data | orderBy:predicate:reverse | filter: searchFilter"">
+                            <td>{{p.ref}}</td>
+                            <td>{{p.refCliente}}</td>
+                            <td>{{p.tema}}</td>
+                            <td>{{p.dataPedido}}</td>
+                            <td>{{p.status}}</td>
+                            <td>
+                                <a ng-show="p.situacao == 1" href="#!/tema/{{clt.id}}/{{p.id}}" class="btn btn-primary" title="Completar tema"><span class="fa fa-file-text"></span></a>
+                                <a ng-show="p.situacao == 2" ng-click="docForClient((p.id))" class="btn btn-info" title="Criar folhas para o cliente"><span class="fa fa-file"></span></a>
+                                <a ng-show="p.situacao == 2" href="#!/preencherPedido/{{p.idTema}}" class="btn btn-warning" title="Preencher dados do pedido"><span class="fa fa-pencil-square-o"></span></a>
+                                <a ng-show="p.situacao == 3" href="#!/ordDet/{{p.id}}" class="btn btn-success" title="Editar pedido"><span class="fa fa-pencil"></span></a>
+                                <button ng-show="p.situacao<5" ng-click="eliminar(p.id)" class="btn btn-danger pull-right" title="Eliminar pedido"><span class="fa fa-times"></span></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <a class="btn btn-warning" href="#!/dashboard"> Voltar</a>
+                    <a class="btn btn-info" href="#!/newTema/{{clt.id}}"><i class="fa fa-plus"></i> Novo Tema</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

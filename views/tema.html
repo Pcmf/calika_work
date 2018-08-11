@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--
+    Criar um novo Tema e adicionar os modelos. Á medida que cria os modelos vai listando.
+    Permitir editar/eliminar os modelos que for criando
+    Permitir aceder a esta pagina para editar Modelos do tema selecionado
+-->
+<div class="container">
+    <div class="text-center">
+        <h4 class="text-info" ng-if="!editar">Criar Novo tema para: <strong class="text-primary"> {{clt.nome}}</strong></h4>
+        <h4 class="text-info" ng-if="editar">Tema:
+            <img class="imgSmall" ng-src="img/temas/{{pedido.imagem}}" alt="Tema"/>
+            <strong class="text-primary text-uppercase">{{pedido.tema}}</strong> para: <strong class="text-primary"> {{clt.nome}}</strong></h4>
+    </div>
+    <!-- CRIAR UM TEMA -->
+    <div class="row" ng-show="!editar">
+        <div class="col-xs-12">
+            <div class="panel">
+
+                <div class="panel-body">
+                    <div class="form-group col-xs-2">
+                        <label>Ano</label>
+                        <select class="form-control" ng-model="t.ano">
+                            <option ng-value="years[0]" ng-selected="true">{{years[0]}}</option>
+                            <option ng-value="years[1]">{{years[1]}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label>Nome do Tema</label>
+                        <input type="text" class="form-control" ng-model="t.tema"/>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label>Ref Cliente</label>
+                        <input type="text" class="form-control" ng-model="t.refcliente"/>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label>&nbsp;</label>
+                        <input class="form-control" type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" />
+                    </div>
+                    <div class="form-group  col-xs-2">
+                        <label>&nbsp;</label>
+                        <button class="form-control btn btn-success" ng-click="criarTema()"> Criar Tema</button>
+                    </div>
+                    <div class="form-group  col-xs-2">
+                        <label>&nbsp;</label>    
+                        <button  class="form-control btn btn-warning" onclick="window.history.back(-1)"> Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="editar">
+        <div class="col-xs-12">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="bg-info">
+                        <th>{{clt.codigo}}{{pedido.ano}}{{pedido.refInterna}}</th>
+                        <th colspan="3" class="text-left">{{pedido.refCliente}}</th>
+                    </tr>
+                    <tr>
+                        <th>Ref</th>
+                        <th>Artigo</th>
+                        <th>Imagem</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="m in modelos">
+                        <td>{{m.refinterna}}</td>
+                        <td>{{m.nome}}</td>
+                        <td><img class="imgSmall" ng-src="img/{{m.pasta}}/{{m.mainimg}}" alt="Modelo"/></td>
+                        <td>
+                            <button class="btn btn-small btn-info" ng-click="editModelo(m)" title="Editar modelo">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button class="btn btn-small btn-danger" ng-click="delModelo(m.id)" title="Apagar modelo">
+                                <i class="fa fa-times"></i>
+                            </button>                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-4">
+            <button class="btn btn-block btn-info" ng-click="addModelo()">Adicionar Modelo</button>
+        </div>
+        <div class="col-xs-4">
+            <button class="btn btn-block btn-success" ng-click="closeToAproval()">Fechar para Aprovação</button>
+        </div> 
+        <div class="col-xs-4">
+            <button class="btn btn-block btn-warning" onclick="window.history.back(-1)">Sair</button>
+        </div>         
+    </div>
+    
+    
+    
+    
+</div>
+
+
+<!-- Modal para adicionar um MODELO -->
+<script type="text/ng-template" id="modalAddModel2.html" ng-controller="modalInstanceAddModel2"> 
+    <div class="modal-header">
+        <h3 class="modal-title text-center">Novo Modelo<span class="closeModal" ng-click="closeModal()">X</span></h3>
+        <h4 class="modal-title">Tema: <span class="text-primary">{{tema.nome}}</span>
+            <img ng-src="img/{{tema.folder}}/{{tema.imagem}}" style="max-height: 90px"/>
+            <span style="float:right; margin-right: 60px">
+            <img ng-src="img/{{clt.pasta}}/{{clt.logo}}" style="max-height: 90px"/></span>
+        </h4>
+    </div>
+    <form>
+        <div class="modal-body">
+            <h3 class="text-center text-primary">{{i.id}}</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Referencia</label>
+                        <input class="form-control" type="text" ng-model="i.refinterna" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Artigo</label>
+                        <select class="form-control" ng-model="i.a" ng-options="a.nome for a in artigos track by a.id" ng-change="testFields()">
+                        </select>
+                    </div>
+                    <div class="form-group form-inline">
+                        <label>Preço</label>
+                        <input class="form-control" style="width: 100px" type="text" ng-model="i.preco" ng-blur="testFields()"><em class="text-primary"> Euros</em>
+                    </div>
+                   <div class="form-group">
+                        <label>Escala</label>
+                        <select class="form-control" ng-model="i.escala" ng-options="escala.nome for escala in escalas track by escala.id" ng-change="testFields()">
+                        </select>
+                    </div>                          
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea cols="40" rows="6" class="form-control" ng-model="i.descricao" ng-blur="testFields()"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="imagemPrincipal" ng-show="showPrincipal">
+                            <!-- imagem principal do modelo -->
+                            <img ng-src="img/modelos/{{i.mainimg}}" class="thumbnail" style="max-height: 200px; max-width: 200px">
+                            <div class="form-group">
+                                <label>Imagem Principal</label>
+                                <input type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFiles(this)" />
+                            </div> 
+                        <br/>
+                    </div>
+                    <div class="imagensDetalhe" ng-show="loadDetalhes">
+                        <div ng-repeat="img in i.imagens">
+                            <!-- Galeria o carroussel com imagens do modelo-->
+                            <img class="thumbnail" ng-src="img/modelos/{{img}}" style="max-width: 100px; max-height: 100px;" />
+                        </div>
+                        <div class="form-group">
+                            <label>Imagens de detalhe</label>
+                            <input class="form-control" type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFilesDet(this)" />
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer text-center">
+             <button ng-show="loadDetalhes" class="btn btn-success" ng-click="saveModelo(i)">Guardar</button>
+             <button class="btn btn-warning" ng-click="closeModal()">Cancelar</button>
+        </div>
+    </form> 
+</script>
+
+<!-- Modal para EDITAR um MODELO -->
+<script type="text/ng-template" id="modalEditModel.html" ng-controller="modalInstanceEditModel"> 
+    <div class="modal-header">
+        <h3 class="modal-title text-center">Editar Modelo<span class="closeModal" ng-click="closeModal()">X</span></h3>
+        <h4 class="modal-title">Tema: <span class="text-primary">{{tema.nome}}</span>
+            <img ng-src="img/{{tema.folder}}/{{tema.imagem}}" style="max-height: 90px"/>
+            <span style="float:right; margin-right: 60px">
+            <img ng-src="img/{{clt.pasta}}/{{clt.logo}}" style="max-height: 90px"/></span>
+        </h4>
+    </div>
+    <form>
+        <div class="modang-l-body">
+            <h3 class="text-center text-primary">{{i.mid}}</h3>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Referencia</label>
+                        <input class="form-control" type="text" ng-model="i.refinterna" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Artigo</label>
+                        <input class="form-control" type="text" ng-model="i.artigo.nome" readonly />
+                    </div>
+                    <div class="form-group form-inline">
+                        <label>Preço</label>
+                        <input class="form-control" style="width: 100px" type="text" ng-model="i.preco"><em class="text-primary"> Euros</em>
+                    </div>
+                   <div class="form-group">
+                        <label>Escala</label>
+                        <select class="form-control" ng-model="i.escala" ng-options="escala.nome for escala in escalas track by escala.id">
+                        </select>                        
+                    </div>                          
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea cols="40" rows="6" class="form-control" ng-model="i.descricao"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="imagemPrincipal">
+                            <!-- imagem principal do modelo -->
+                            <img ng-src="img/modelos/{{i.mainimg}}" class="thumbnail" style="max-height: 200px; max-width: 200px">
+                        <br/>
+                    </div>
+                    <label>Imagens de detalhe </label>
+                    <span class="text-primary small"> *Click na imagem para a eliminar.</span>
+                    <div class="imagensDetalhe">
+                        <div  ng-repeat="img in i.imagens" class="col-xs-6">
+                            <!-- Galeria o carroussel com imagens do modelo-->
+                            <img class="thumbnail" ng-src="img/modelos/{{img}}" style="max-width: 100px; max-height: 90px;" ng-click="deleteImg(img,i.id)"/>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="file" ng-model-instant id="fileToUpload" onchange="angular.element(this).scope().setFilesDetEdit(this)" />
+                        </div> 
+                            
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer text-center">
+             <button class="btn btn-success" ng-click="saveModelo(i)">Guardar</button>
+             <button class="btn btn-warning" ng-click="closeModal()">Cancelar</button>
+        </div>
+    </form> 
+</script>
+
+
+      

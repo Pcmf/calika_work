@@ -1,0 +1,219 @@
+<div class="container-fluid">
+    <h1 class="text-center text-primary">Configurações</h1>
+    <div class="row">
+
+        <!-- Artigos -->
+        <div class="col-sm-6 col-md-4 divTab bg-info">
+            <div class="bg-info" ng-show="editArt">
+                <form>
+                    <h4 ng-show="!i.iArt" class="text-center">Novo Artigo</h4>
+                    <h4 ng-show="i.iArt" class="text-center">Editar Artigo</h4>
+                    <div class="form-inline">
+                        <label ng-show="i.iArt">{{i.iArt}} - </label>
+                        <input type="text" class="form-control" style="width: 90%" ng-model="i.nArt" placeholder="Artigo">
+                        <textarea class="form-control" cols="46" rows="2" ng-model="i.dArt" required="" placeholder="Descrição"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <br/>
+                        <button class="btn btn-success" ng-click="saveArt(i)">Guardar</button>
+                        <button class="btn btn-warning" ng-click="closeArt()">Cancelar</button>
+                        <button ng-show="i.iArt" class="btn btn-danger" ng-click="deleteArt(i)">Remover</button>
+                    </div>
+                </form>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <button  class="btn btn-info btn-block" ng-click="editarArt({})">Artigos
+                                <span class="glyphicon glyphicon-plus" style="float: right"> Novo</span>
+                            </button>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="a in data.artigo" ng-click="editarArt(a)">
+                        <td>{{a.nome}}</td>
+                        <td>{{a.descricao}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <!-- Cores -->       
+        <div class="col-sm-6 col-md-4 divTab bg-success">
+            <div class="bg-success" ng-show="editCor">
+                <h4 class="text-center" ng-show="!i.nCor">Nova Cor</h4>
+                <h4 class="text-center" ng-show="i.nCor">Editar Cor</h4>
+                <form>
+                    <div class="form-inline">
+                        <label>{{i.iCor}} -</label>
+                        <input class="form-control" style="width: 50%" type="text" ng-model="i.nCor" required="" placeholder="Cor">
+                        <input class="form-control" style="width: 30%" type="text" ng-model="i.rCor" required="" placeholder="Referencia">
+                    </div>
+                    <div class="text-center">
+                        <br/>
+                        <button class="btn btn-success" ng-click="saveCor(i)">Guardar</button>
+                        <button class="btn btn-warning" ng-click="closeCor()">Cancelar</button>
+                        <button class="btn btn-danger" ng-click="deleteCor(i)">Remover</button>
+                    </div>
+                </form>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <button  class="btn btn-success btn-block" ng-click="editarCor({})">Cores
+                                <span class="glyphicon glyphicon-plus" style="float: right"> Nova</span>
+                            </button>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Referencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="a in data.cor" ng-click="editarCor(a)">
+                        <td>{{a.nome}}</td>
+                        <td>{{a.ref}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Elementos -->       
+        <div class="col-sm-6 col-md-4 divTab bg-info">
+            <div class="bg-success" ng-show="editElem">
+                <h4 class="text-center" ng-show="!i.id">Novo Artigo</h4>
+                <h4 class="text-center" ng-show="i.id">Editar Artigo</h4>
+                <form>
+                    <div class="form-inline">
+                        <label ng-show="i.id">{{i.id}} - </label>
+                        <input style="width: 90%" class="form-control" type="text" ng-model="i.nome" required="" placeholder="Elemento">
+                        <input style="width: 100%" class="form-control" type="text" ng-model="i.descricao"  placeholder="Descrição (opcional)">
+                    </div>
+                    <div class="text-center">
+                        <br/>
+                        <button class="btn btn-success" ng-click="saveElem(i)">Guardar</button>
+                        <button class="btn btn-warning" ng-click="closeElem()">Cancelar</button>
+                        <button class="btn btn-danger" ng-click="deleteElem(i)">Remover</button>
+                    </div>
+                </form>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <button  class="btn btn-success btn-block" ng-click="editarElem({})">Elementos
+                                <span class="glyphicon glyphicon-plus" style="float: right"> Nova</span>
+                            </button>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <th>descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="a in data.elemento" ng-click="editarElem(a)">
+                        <td>{{a.nome}}</td>
+                        <td>{{a.descricao}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- Embalagens -->
+        <div class="col-sm-6 col-md-4 divTab bg-warning">
+            <div class="bg-warning" ng-show="editEmb">
+                <h4 class="text-center" ng-show="!i.iEmb">Nova Embalangem</h4>
+                <h4 class="text-center" ng-show="i.iEmb">Editar Embalangem</h4>
+                <form>
+                    <div class="form-inline">
+                        <label ng-show="i.iEmb">{{i.iEmb}} - </label>
+                        <input class="form-control" style="width: 90%" type="text" ng-model="i.nEmb" required="" placeholder="Nome">
+                        <textarea class="form-control" cols="46" rows="2" ng-model="i.dEmb" required="" placeholder="Descrição"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <br/>
+                        <button class="btn btn-success" ng-click="saveEmb(i)">Guardar</button>
+                        <button class="btn btn-warning" ng-click="closeEmb()">Cancelar</button>
+                        <button ng-show="i.iEmb" class="btn btn-danger" ng-click="deleteEmb(i)">Remover</button>
+                    </div>
+                </form>
+            </div>  
+            <table class="table table-bordered table-hover">
+                <thead>
+                        <tr>
+                            <th colspan="2">
+                            <button  class="btn btn-warning btn-block" ng-click="editarEmb({})">Embalagens
+                                <span class="glyphicon glyphicon-plus" style="float: right"> Nova</span>
+                            </button>                        
+                            </th>
+                        </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="a in data.embalagem" ng-click="editarEmb(a)">
+                        <td>{{a.nome}}</td>
+                        <td>{{a.descricao}}</td>
+                    </tr>
+                </tbody>
+            </table>
+          
+        </div>
+        
+        <!-- Linhas 
+        <div class="col-sm-6 col-md-4 divTab bg-info">
+            <div class="bg-inf" ng-show="editLin">
+                <h4 class="text-center" ng-show="!i.iLin">Nova Linha</h4>
+                <h4 class="text-center" ng-show="i.iLin">Editar Linha</h4>
+                <form>
+                    <div class="form-inline">
+                        <label ng-show="i.iLin">{{i.iLin}}</label>
+                        <input class="form-control" style="width: 40%" type="text" ng-model="i.rLin" required="" placeholder="Referencia">
+                        <input class="form-control" style="width: 50%" type="text" ng-model="i.cLin" required="" placeholder="Cor">
+                    </div>
+                    <div class="text-center">
+                        <br/>
+                        <button class="btn btn-success" ng-click="saveLin(i)">Guardar</button>
+                        <button class="btn btn-warning" ng-click="closeLin()">Cancelar</button>
+                        <button class="btn btn-danger" ng-click="deleteLin(i)">Remover</button>
+                    </div>
+                </form>
+            </div> 
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <button  class="btn btn-info btn-block" ng-click="editarLin({})">Linhas
+                                <span class="glyphicon glyphicon-plus" style="float: right"> Nova</span>
+                            </button>                            
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Cor</th>
+                        <th>Referencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="a in data.linha" ng-click="editarLin(a)">
+                        <td>{{a.cor}}</td>
+                        <td>{{a.ref}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>-->
+        
+    </div> 
+</div>
+

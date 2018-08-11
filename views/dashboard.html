@@ -1,0 +1,21 @@
+<!-- Listar os clientes com a indicação dos pedidos e sua situação -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" ng-repeat="c in data">
+            <div class="thumbnail">
+                <a href="#!/list/{{c.id}}">
+                    <img ng-src="img/logos/{{c.logo}}" style="max-height: 100px" alt="Logotipo"/>
+                </a>
+                <div class="caption">
+                    <h4 class="text-center text-info">{{c.nome}}</h4>
+                    <ul class="list-unstyled" ng-repeat="ord in c.orders">
+                        <li class="list-group-item-info">{{ord.situacao}}  <span class="pull-right">{{ord.qty}}</span> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
