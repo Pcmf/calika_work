@@ -7,14 +7,14 @@
  */
 require_once 'openCon.php';
 
-$data = file_get_contents("php://input");
-$modelo = json_decode($data);
+$json = file_get_contents("php://input");
+$modelo = json_decode($json);
 
 
 !isset($modelo->preco)?$modelo->preco=0:null;
 !isset($modelo->escala->id)?$escala=0:$escala=$modelo->escala->id;
 //
-$resp = array();
+//$resp = array();
 //Grava modelo ou atualiza(?)
 
 
@@ -23,17 +23,13 @@ $resp = array();
             ,$modelo->descricao,$modelo->mainimg, json_encode($modelo->imagens),$modelo->preco,$escala,$modelo->id);
 		
 		$result = mysqli_query($con,$query);
-		if($result){
-			$resp['tipo'] = 'OK';
-			$resp['valor'] = $modelo->mainimg;
-		} else{
-			$resp['tipo'] = 'Erro';
-		    $resp['valor'] = 'Erro no update linha 29';
+		if(!$result){
+                    echo $query;
 		}
 
 
 
-echo json_encode($resp);
+//echo json_encode($resp);
   
 
 

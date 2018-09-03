@@ -112,11 +112,7 @@ angular.module('appCalika').controller('temaController',function($scope,$http,$r
 
     //Button to edit Modelo from table list
     $scope.editModelo = function(modelo){
-//        $http({
-//            url:'php/getDataFxId.php',
-//            method:'POST',
-//            data:{params:JSON.stringify({'fx':'modelo','id':ln.id})}
-//        }).then(function(answer){
+
             var parm = {};
             parm.modelo = modelo;
             parm.tema = $scope.pedido;
@@ -136,10 +132,25 @@ angular.module('appCalika').controller('temaController',function($scope,$http,$r
             },function(){
                 getModelosByPedido();
             });
-//        });
 
     };
-    
+//To Approval
+    $scope.closeToAprovacao = function(){
+        var modalInstance = $modal.open({
+            templateUrl:'modalToApproval.html',
+            controller:'modalInstanceToApproval',
+            size:'sm',
+            resolve: {items: function(){
+                    return $scope.pedido.id;
+                }
+            }
+        });
+            modalInstance.result.then(function(){
+                window.location.replace("#!/list/"+$scope.cid);
+            },function(){
+                getModelosByPedido();
+            });        
+    }
     
     //Funtions
     function getModelosByPedido(){
@@ -194,14 +205,14 @@ angular.module('appCalika').controller('modalInstanceAddModel2', function ($scop
         });
         //Test if all fields are filledup
         $scope.testFields = function(){
-            if($scope.i.a && $scope.i.preco && $scope.i.descricao && $scope.i.escala){
+            if($scope.i.a && $scope.i.descricao && $scope.i.escala){
                 $scope.showPrincipal = true;
             } else {
                 $scope.showPrincipal = false;
             }
         }
 
-        //Select imagem
+        //Select imagem PRINCIPAL
         $scope.setFiles = function(element) {
                 $scope.$apply(function($scope) {
               // Turn the FileList object into an Array
@@ -239,17 +250,12 @@ angular.module('appCalika').controller('modalInstanceAddModel2', function ($scop
                 $http({
                     url:'php/saveModelo.php',
                     method:'POST',
-                    data:{params:JSON.stringify(parm)}
+                    data:JSON.stringify(parm)
                 }).then(function(answer){
-                    if(answer.data.tipo === 'OK'){
-                        //atualiza o scope para mostra a imagem principal
-                        $scope.i.id = answer.data.id;
-                        $scope.i.mainimg = answer.data.valor;
-                        // mostra o botão para adicionar imagens de detalhe
-                        $scope.loadDetalhes = true;
-                    } else{
-                        alert(answer.data.valor);
-                    }
+                    //atualiza o scope para mostra a imagem principal
+                    $scope.i.id = answer.data;
+                    // mostra o botão para adicionar imagens de detalhe
+                    $scope.loadDetalhes = true;
                 });
               });
             });
@@ -278,7 +284,7 @@ angular.module('appCalika').controller('modalInstanceAddModel2', function ($scop
                         var data = new FormData();
                         data.append("image",$scope.imgBlob,$scope.filename);
                         request.send(data);
-                        setTimeout(function() {$scope.i.imagens.push($scope.filename);}, 100);
+                        $scope.$apply(function() {$scope.i.imagens.push($scope.filename);});
                     }
                 });
             });
@@ -292,18 +298,11 @@ angular.module('appCalika').controller('modalInstanceAddModel2', function ($scop
             $http({
                 url:'php/updateModelo.php',
                 method:'POST',
-                data:{params:JSON.stringify(modelo)}
+                data:JSON.stringify(modelo)
             }).then(function(answer){
-                if(answer.data.tipo === 'OK'){
-                    //atualiza o scope para mostra a imagem principal
-                    $scope.i.mainimg = answer.data.valor;
-                    // mostra o botão para adicionar imagens de detalhe
-                    $scope.loadDetalhes = true;
-                } else{
-                    alert(answer.data.valor);
-                }
+                    $scope.closeModal();
             });
-            $scope.closeModal();
+            
         };
         
         
@@ -377,7 +376,7 @@ angular.module('appCalika').controller('modalInstanceEditModel', function ($scop
                         var data = new FormData();
                         data.append("image",$scope.imgBlob,$scope.filename);
                         request.send(data);
-                        setTimeout(function() {($scope.i.imagens).push($scope.filename);}, 1000);                        
+                        $scope.$apply(function() {($scope.i.imagens).push($scope.filename);}, 1000);                        
                     }
                 });
             });
@@ -390,7 +389,7 @@ angular.module('appCalika').controller('modalInstanceEditModel', function ($scop
                 $http({
                     url: 'php/deleteImgDetail.php',
                     method:'POST',
-                    data:{params:JSON.stringify({'mid':mid,'img':img})}
+                    data:JSON.stringify({'mid':mid,'img':img})
                 });
                 var idx = $scope.i.imagens.indexOf(img);
                 $scope.i.imagens.splice(idx,1);
@@ -405,14 +404,6 @@ angular.module('appCalika').controller('modalInstanceEditModel', function ($scop
                 method:'POST',
                 data:JSON.stringify(modelo)
             }).then(function(answer){
-                if(answer.data.tipo === 'OK'){
-                    //atualiza o scope para mostra a imagem principal
-                    $scope.i.mainimg = answer.data.valor;
-                    // mostra o botão para adicionar imagens de detalhe
-                    $scope.loadDetalhes = true;
-                } else{
-                    alert(answer.data.valor);
-                }
                 $modalInstance.close();
             });
         };
@@ -422,4 +413,31 @@ angular.module('appCalika').controller('modalInstanceEditModel', function ($scop
         $scope.closeModal = function () {
             $modalInstance.dismiss('cancel');
         };    
+});
+
+/**
+ * MODAL instance for ToApproval
+ */
+angular.module('appCalika').controller('modalInstanceToApproval', function ($scope,$http, $modalInstance,items) {
+    console.log(items);
+    $scope.criarFolhasCliente = function(){
+        $http({
+            url:'php/docForClient.php',
+            method:'POST',
+            data:items
+        }).then(function(answer){
+            window.open(answer.data);
+            $modalInstance.close();
+        });
+    }
+    
+    $scope.notNow = function(){
+        $http({
+            url:'php/updateStatus.php',
+            method:"POST",
+            data:JSON.stringify({'pid':items,'status':2})
+        }).then(function(answer){
+            $modalInstance.close();
+        });
+    }
 });

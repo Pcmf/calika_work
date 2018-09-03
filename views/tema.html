@@ -84,7 +84,7 @@
             <button class="btn btn-block btn-info" ng-click="addModelo()">Adicionar Modelo</button>
         </div>
         <div class="col-xs-4">
-            <button class="btn btn-block btn-success" ng-click="closeToAproval()">Fechar para Aprovação</button>
+            <button class="btn btn-block btn-success" ng-click="closeToAprovacao()">Fechar para Aprovação</button>
         </div> 
         <div class="col-xs-4">
             <button class="btn btn-block btn-warning" onclick="window.history.back(-1)">Sair</button>
@@ -117,7 +117,7 @@
                         <input class="form-control" type="text" ng-model="i.refinterna" readonly>
                     </div>
                     <div class="form-group">
-                        <label>Artigo</label>
+                        <label>Artigo<i class="text-danger">*</i></label>
                         <select class="form-control" ng-model="i.a" ng-options="a.nome for a in artigos track by a.id" ng-change="testFields()">
                         </select>
                     </div>
@@ -126,12 +126,12 @@
                         <input class="form-control" style="width: 100px" type="text" ng-model="i.preco" ng-blur="testFields()"><em class="text-primary"> Euros</em>
                     </div>
                    <div class="form-group">
-                        <label>Escala</label>
+                        <label>Escala<i class="text-danger">*</i></label>
                         <select class="form-control" ng-model="i.escala" ng-options="escala.nome for escala in escalas track by escala.id" ng-change="testFields()">
                         </select>
                     </div>                          
                     <div class="form-group">
-                        <label>Descrição</label>
+                        <label>Descrição<i class="text-danger">*</i></label>
                         <textarea cols="40" rows="6" class="form-control" ng-model="i.descricao" ng-blur="testFields()"></textarea>
                     </div>
                 </div>
@@ -229,4 +229,11 @@
 </script>
 
 
-      
+<!-- Modal para Fechar para aprovação. Permite criar folhas para o cliente  -->
+<script type="text/ng-template" id="modalToApproval.html" ng-controller="modalInstanceToApproval"> 
+    <div class="modal-body">
+        <h4>Pretende criar folhas para usar no cliente?</h4>
+        <button class="btn btn-info" ng-click="criarFolhasCliente()"><i class="fa fa-print"></i>Imprimir</button>
+        <button class="btn btn-warning" ng-click="notNow()"><i class=""></i>Agora Não</button>
+    </div>
+</script>      

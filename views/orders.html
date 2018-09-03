@@ -20,13 +20,13 @@
                                 <a href="" ng-click="sort('ref')" class="sortDir text-danger" ng-class="{ active: isSorted('ref') }">&#x25B2;</a>
                                 <a href="" ng-click="sort('-ref')" class="sortDir text-danger" ng-class="{ active: isSorted('-ref' ) }">&#x25BC;</a>                            
                             </th>
-                            <th>Ref do Cliente
-                                <a href="" ng-click="sort('refCliente')" class="sortDir text-danger" ng-class="{ active: isSorted('refCliente') }">&#x25B2;</a>
-                                <a href="" ng-click="sort('-refCliente')" class="sortDir text-danger" ng-class="{ active: isSorted('-refCliente' ) }">&#x25BC;</a>                            
-                            </th>
                             <th>Tema
                                 <a href="" ng-click="sort('tema')" class="sortDir text-danger" ng-class="{ active: isSorted('tema') }">&#x25B2;</a>
                                 <a href="" ng-click="sort('-tema')" class="sortDir text-danger" ng-class="{ active: isSorted('-tema' ) }">&#x25BC;</a>                            
+                            </th>                            ´
+                            <th>Ref do Cliente
+                                <a href="" ng-click="sort('refCliente')" class="sortDir text-danger" ng-class="{ active: isSorted('refCliente') }">&#x25B2;</a>
+                                <a href="" ng-click="sort('-refCliente')" class="sortDir text-danger" ng-class="{ active: isSorted('-refCliente' ) }">&#x25BC;</a>                            
                             </th>
                             <th>Data do Pedido
                                 <a href="" ng-click="sort('dataPedido')" class="sortDir text-danger" ng-class="{ active: isSorted('dataPedido') }">&#x25B2;</a>
@@ -42,16 +42,19 @@
                     <tbody>
                         <tr ng-repeat="p in $data | orderBy:predicate:reverse | filter: searchFilter"">
                             <td>{{p.ref}}</td>
-                            <td>{{p.refCliente}}</td>
                             <td>{{p.tema}}</td>
+                            <td>{{p.refCliente}}</td>
+                            
                             <td>{{p.dataPedido}}</td>
                             <td>{{p.status}}</td>
                             <td>
-                                <a ng-show="p.situacao == 1" href="#!/tema/{{clt.id}}/{{p.id}}" class="btn btn-primary" title="Completar tema"><span class="fa fa-file-text"></span></a>
-                                <a ng-show="p.situacao == 2" ng-click="docForClient((p.id))" class="btn btn-info" title="Criar folhas para o cliente"><span class="fa fa-file"></span></a>
-                                <a ng-show="p.situacao == 2" href="#!/preencherPedido/{{p.idTema}}" class="btn btn-warning" title="Preencher dados do pedido"><span class="fa fa-pencil-square-o"></span></a>
-                                <a ng-show="p.situacao == 3" href="#!/ordDet/{{p.id}}" class="btn btn-success" title="Editar pedido"><span class="fa fa-pencil"></span></a>
-                                <button ng-show="p.situacao<5" ng-click="eliminar(p.id)" class="btn btn-danger pull-right" title="Eliminar pedido"><span class="fa fa-times"></span></button>
+                                <a ng-show="p.situacao == 1" href="#!/tema/{{clt.id}}/{{p.id}}" class="btn btn-primary" title="Completar tema"><span class="fa fa-pencil"></span></a>
+                                <a ng-show="p.situacao == 2" ng-click="docForClient((p))" class="btn btn-info" title="Imprimir folhas para o cliente"><span class="fa fa-print"></span></a>
+                                <a ng-show="p.situacao == 2" href="#!/fillord/{{p.id}}" class="btn btn-warning" title="Preencher dados do pedido"><span class="fa fa-pencil-square-o"></span></a>
+                            <!--    <a ng-show="p.situacao == 3" href="#!/ordDet/{{p.id}}" class="btn btn-success" title="Editar pedido"><span class="fa fa-pencil"></span></a>  -->
+                                <a ng-show="p.situacao == 3" class="btn btn-primary" title="Imprimir folhas para produção" ng-click="docToProd(p.id)"><span class="fa fa-print"></span></a>
+                                <a ng-show="p.situacao == 5" href="#!/prod/{{p.id}}" class="btn btn-success" title="Produção. Ver detalhes"><span class="fa fa-cogs"></span></a>
+                                <button ng-show="p.situacao<5" ng-click="deletePedido(p.id)" class="btn btn-danger pull-right" title="Eliminar pedido"><span class="fa fa-times"></span></button>
                             </td>
                         </tr>
                     </tbody>

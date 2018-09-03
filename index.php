@@ -36,6 +36,7 @@ and open the template in the editor.
         <script src="js/client.js" type="text/javascript"></script>
         <script src="js/orders.js" type="text/javascript"></script>
         <script src="js/tema.js" type="text/javascript"></script>
+        <script src="js/fillord.js" type="text/javascript"></script>
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
     </head>
     <body ng-controller="mainController">

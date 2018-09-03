@@ -5,6 +5,7 @@ app.config(function($routeProvider){
             .when('/config',{templateUrl:'views/config.html',controller:'configController'})
             .when('/client',{templateUrl:'views/client.html',controller:'clientController'})
             .when('/list/:id',{templateUrl:'views/orders.html',controller:'ordersController'})
+            .when('/fillord/:id',{templateUrl:'views/fillord.html',controller:'fillordController'})
             .when('/newTema/:cid',{templateUrl:'views/tema.html',controller:'temaController'})
             .when('/tema/:cid/:pid',{templateUrl:'views/tema.html',controller:'temaController'})
             .otherwise({templateUrl:'views/dashboard.html',controller:'dashboardController'});
