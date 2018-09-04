@@ -82,6 +82,27 @@ angular.module('appCalika').controller('ordersController',function($scope,$http,
         }
     };
     
+    //Botão para alterar para edição - mudar status para 2
+    $scope.changeToEdit = function(pid){
+        $http({
+            url:'php/updateStatus.php',
+            method:'POST',
+            data:JSON.stringify({'pid':pid,'status':2})
+        }).then(function(answer){
+            getOrders();
+        })
+    };
+
+    //Botão para alterar para edição do pedido - mudar status para 1
+    $scope.changeToEditPedido = function(pid){
+        $http({
+            url:'php/updateStatus.php',
+            method:'POST',
+            data:JSON.stringify({'pid':pid,'status':1})
+        }).then(function(answer){
+            getOrders();
+        })
+    };    
     
     //Funções de ordenação da tabela
     $scope.sort = function (predicate) {
