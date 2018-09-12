@@ -182,9 +182,9 @@ angular.module('appCalika').controller('modalInstanceAddModel2', function ($scop
         $http({
             url:'php/getReferenciaModelo.php',
             method:'POST',
-            data:items.tema.id
+            data:JSON.stringify({'pedido':items.tema})
         }).then(function(answer){
-            $scope.i.refinterna = items.clt.codigo+items.tema.ano+items.tema.refInterna+answer.data;
+            $scope.i.refinterna = items.clt.codigo+answer.data;
         });
 
         //Load artigos

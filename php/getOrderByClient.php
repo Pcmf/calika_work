@@ -20,7 +20,7 @@ $query = sprintf("SELECT P.*, S.situacao AS status, C.codigo FROM pedido P "
 $result = mysqli_query($con,$query);
 if ($result){
     while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-        $row['ref'] = $row['codigo'].((($row['ano'])*1000)+$row['refInterna']);
+        $row['ref'] = $row['codigo']. substr($row['ano'],-2).$row['refInterna'];
         array_push($resp, $row);
     }
     echo json_encode($resp);
