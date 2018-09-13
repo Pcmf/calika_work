@@ -55,7 +55,9 @@
                             <!--    <a ng-show="p.situacao == 3" href="#!/ordDet/{{p.id}}" class="btn btn-success" title="Editar pedido"><span class="fa fa-pencil"></span></a>  -->
                                 <a ng-show="p.situacao == 3" class="btn btn-primary" title="Imprimir folhas para produção" ng-click="docToProd(p.id)"><span class="fa fa-print"></span></a>
                                 <a ng-show="p.situacao == 3" class="btn btn-warning" title="Editar" ng-click="changeToEdit(p.id)"><span class="fa fa-pencil"></span></a>
-                                <a ng-show="p.situacao == 5" href="#!/prod/{{p.id}}" class="btn btn-success" title="Produção. Ver detalhes"><span class="fa fa-cogs"></span></a>
+                                <a ng-show="p.situacao == 5" href="#!/prod/{{p.id}}" class="btn btn-success" title="Produção. Ver detalhes (not working)"><span class="fa fa-cogs"></span></a>
+                                <a ng-show="p.situacao == 5" ng-click="voltarAtras(p.id)" class="btn btn-warning" title="Voltar atrás"><span class="fa fa-undo"></span></a>
+                                <a ng-show="p.situacao == 5" ng-click="finalizarProd(p.id)" class="btn btn-danger" title="Finalizar a produção"><span class="fa fa-truck"></span></a>
                                 <button ng-show="p.situacao<5" ng-click="deletePedido(p.id)" class="btn btn-danger pull-right" title="Eliminar pedido"><span class="fa fa-times"></span></button>
                             </td>
                         </tr>

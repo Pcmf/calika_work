@@ -104,6 +104,29 @@ angular.module('appCalika').controller('ordersController',function($scope,$http,
         })
     };    
     
+        //Botão para voltar atrás na produção
+    $scope.voltarAtras = function(pid){
+        $http({
+            url:'php/updateStatus.php',
+            method:'POST',
+            data:JSON.stringify({'pid':pid,'status':4})
+        }).then(function(answer){
+            getOrders();
+        })
+    };    
+    
+        //Botão para finalizar a produção
+    $scope.finalizarProd = function(pid){
+        $http({
+            url:'php/updateStatus.php',
+            method:'POST',
+            data:JSON.stringify({'pid':pid,'status':6})
+        }).then(function(answer){
+            getOrders();
+        })
+    };    
+    
+    
     //Funções de ordenação da tabela
     $scope.sort = function (predicate) {
         $scope.predicate = predicate;
