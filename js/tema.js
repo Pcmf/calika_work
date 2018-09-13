@@ -182,7 +182,7 @@ angular.module('appCalika').controller('modalInstanceAddModel2', function ($scop
         $http({
             url:'php/getReferenciaModelo.php',
             method:'POST',
-            data:JSON.stringify({'pedido':items.tema})
+            data:JSON.stringify({'pedido':items.tema,'clt':$scope.clt})
         }).then(function(answer){
             $scope.i.refinterna = items.clt.codigo+answer.data;
         });
