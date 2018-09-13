@@ -109,7 +109,7 @@ angular.module('appCalika').controller('ordersController',function($scope,$http,
         $http({
             url:'php/updateStatus.php',
             method:'POST',
-            data:JSON.stringify({'pid':pid,'status':4})
+            data:JSON.stringify({'pid':pid,'status':3})
         }).then(function(answer){
             getOrders();
         })
