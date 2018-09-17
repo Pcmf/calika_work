@@ -126,6 +126,16 @@ angular.module('appCalika').controller('ordersController',function($scope,$http,
         })
     };    
     
+        //Botão para voltar atrás na produção
+    $scope.voltarAtras5 = function(pid){
+        $http({
+            url:'php/updateStatus.php',
+            method:'POST',
+            data:JSON.stringify({'pid':pid,'status':5})
+        }).then(function(answer){
+            getOrders();
+        })
+    };      
     
     //Funções de ordenação da tabela
     $scope.sort = function (predicate) {
