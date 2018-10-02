@@ -19,4 +19,46 @@ app.controller('mainController',function($scope,$http){
     }).then(function(answer){
         $scope.clients = answer.data;
     });
+    if(sessionStorage.userData){
+        $scope.tipo = JSON.parse(sessionStorage.userData).tipo
+        $scope.nome = JSON.parse(sessionStorage.userData).nome
+    }
+    $scope.logout = function(){
+        window.sessionStorage.clear();
+        $http({
+            url:'php/logout.php'
+        });
+        window.location.replace('index.php');
+    }
+    
+});
+
+app.controller('loginCntrl', function($scope,$http){
+       //Check login
+       $scope.validUser = false;
+    window.sessionStorage.clear();
+    $scope.error = '';
+
+    $scope.login = function(u){
+        $http({
+            url:'php/checkUser.php',
+            method: 'POST',
+            data:JSON.stringify({'username':u.userName,'pwd':u.pwd})
+        }).then(function(resposta){
+          if(resposta.data.aviso !== undefined){
+            if(resposta.data.aviso == ""){
+                $scope.aviso = "";
+                window.sessionStorage.userData = JSON.stringify(resposta.data.user);
+                $scope.userData = resposta.data.user;
+                window.location.replace('main.php');
+                
+            } else {
+                $scope.aviso = resposta.data.aviso;
+            }
+        } else{
+            $scope.error = 'Problema na base de dados. Por favor contacte o suporte.';
+        }
+        });            
+    }; 
+
 });

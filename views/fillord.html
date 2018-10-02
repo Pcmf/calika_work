@@ -79,16 +79,16 @@
                     <table id="infoPriceTable" class="table table-bordered text-center">
                     <thead class="bg-info">
                         <tr>
-                            <th>Preço Unitário</th>
+                            <th ng-if="tipo==0">Preço Unitário</th>
                             <th>Quantidade</th>
-                            <th>Valor Total</th>
+                            <th ng-if="tipo==0">Valor Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" ng-model="priceUnit" style="width: 60px" ng-change="updatePrice(priceUnit,modelo.id)"/></td>
+                            <td ng-if="tipo==0"><input type="text" ng-model="priceUnit" style="width: 60px" ng-change="updatePrice(priceUnit,modelo.id)"/></td>
                             <td>{{qtyTotal}}</td>
-                            <td>{{qtyTotal * priceUnit}} €</td>
+                            <td ng-if="tipo==0">{{qtyTotal * priceUnit}} €</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,6 +1,8 @@
 angular.module('appCalika').controller('fillordController',function($scope,$http,$routeParams,$modal,$timeout){
+    //carrega o tipo de utilizador
+    $scope.tipo = JSON.parse(sessionStorage.userData).tipo
 	//load modelo 
-	var slides= [];
+	//var slides= [];
       //Receives the order/theme id and with that goes get all models main data (id,mainimg,ref)
       var pid = $routeParams.id;
       //Get theme data

@@ -22,17 +22,18 @@ angular.module('appCalika').controller('ordersController',function($scope,$http,
     
     //PHP para imprimir folhas de detalhe para pedido - para ser preenchido manualmente
     $scope.docForClient = function(pedido){
-        if(pedido.doc4client){
-            window.open(pedido.doc4client);
-        } else{
+//        if(pedido.doc4client){
+//            window.open(pedido.doc4client);
+//        } else{
             $http({
                 url:'php/docForClient.php',
                 method:'POST',
                 data:pedido.id
             }).then(function(answer){
                 window.open(answer.data);
+                alert(answer.data);
             });
-        }
+//        }
     };
     
     //Print Doc to productio
