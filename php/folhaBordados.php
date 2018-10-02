@@ -119,7 +119,8 @@ if($result0){
             $pdf->Ln(10);
             $pdf->MultiCell(0, 8, utf8_decode('OBSERVAÇÕES'));
             $pdf->Ln(1);
-            $pdf->Cell(180, 30, '',1, 2,'', false);
+            
+            $pdf->MultiCell(180, 5, utf8_decode($row['obscliente']),1, 'L', false);
            
             //Inserir Tabela 2 Linhas
             $pdf->Ln(10);
@@ -189,7 +190,7 @@ if($result0){
        } //Fim do ciclo principal - pedido/modelo
    }    
 
-//$pdf->Output();
+
 
 $doc = '../doc/Bordados_'.$row0['clienteId'].'_'.$row0['ano'].'_'.$row0['tema'].'.pdf';
 $pdf->Output($doc,'F');
