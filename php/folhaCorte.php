@@ -116,10 +116,10 @@ if($result0){
               
             }
             //Links dos Moldes
-            $pdf->Ln(10);
-            $pdf->MultiCell(0, 8, 'Links dos Moldes');
-            $pdf->Ln(1);
-            $pdf->Cell(180, 15, '',1, 2,'', false);
+    //        $pdf->Ln(10);
+    //        $pdf->MultiCell(0, 8, 'Links dos Moldes');
+   //         $pdf->Ln(1);
+   //         $pdf->Cell(180, 15, '',1, 2,'', false);
            
             //Inserir Tabela 2 Linhas
             $pdf->Ln(10);
@@ -157,7 +157,7 @@ if($result0){
             $pdf->Ln(10);
             $pdf->MultiCell(0, 8, utf8_decode('Observações'));
             $pdf->Ln(1);
-            $pdf->Cell(180, 15, '',1, 2,'', false);
+            $pdf->MultiCell(180, 4, utf8_decode($row['obscliente']),1, 'L', false);
             
     //Insere uma quebra de pagina para imprimir as imagens no verso
             $pdf->AddPage();
