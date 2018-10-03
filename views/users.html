@@ -1,0 +1,70 @@
+<div class="container">
+    
+    
+    <table class="table table-bordered table-hover">
+        <thead class="">
+            <tr>
+                <th colspan="5">
+                    <button class="btn btn-primary btn-block text-center" ng-click="editar({})" title="Click para adicionar novo utilizador!">
+                        Utilizadores
+                        <span style="float: right" class="glyphicon glyphicon-plus"> Novo</span>
+                    </button>
+                </th>
+            </tr>
+            <tr class="bg-info">
+                <th>Nome</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="u in users" ng-click="editar(u)">
+                <td>{{u.nome}}</td>
+                <td>{{u.username}}</td>
+                <td>{{u.password}}</td>
+                <td ng-if="u.type==0">Administrador</td>
+                <td ng-if="u.type==1">Utilizador</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/><br/>
+    <div ng-show="edit" class="row bg-info">
+        <div class="container">
+        <form>
+            <h3 class="text-center text-primary">{{i.id}}</h3>
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                <label>Nome</label>
+                <input class="form-control" type="text" ng-model="i.nome">
+            </div>
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                <label>Username</label>
+                <input class="form-control" type="text" ng-model="i.username">
+            </div>
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                <label>Password</label>
+                <input class="form-control" type="text" ng-model="i.password">
+            </div>
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                <label>Tipo</label>
+                <select class="form-control" ng-model="i.type">
+                    <option></option>
+                    <option value="0" ng-selected="i.type==0">Administrador</option>
+                    <option value="1" ng-selected="i.type==1">Utilizador</option>
+                </select>
+            </div>
+
+            <br/>
+            <div class="row text-center">
+                <div class="col-xs-12">
+                    <button class="btn btn-success" ng-click="saveUser(i)">Guardar</button>
+                    <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+                    <button class="btn btn-danger" ng-click="removeUser(i)">Remover</button>
+                </div>
+            </div>  
+        </form>          
+        </div>
+    </div>
+    <br/><br/>
+</div>

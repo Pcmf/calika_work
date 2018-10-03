@@ -4,8 +4,10 @@ app.config(function($routeProvider){
         $routeProvider
             .when('/config',{templateUrl:'views/config.html',controller:'configController'})
             .when('/client',{templateUrl:'views/client.html',controller:'clientController'})
+            .when('/users',{templateUrl:'views/users.html',controller:'usersController'})
             .when('/list/:id',{templateUrl:'views/orders.html',controller:'ordersController'})
             .when('/fillord/:id',{templateUrl:'views/fillord.html',controller:'fillordController'})
+            .when('/closed/:id',{templateUrl:'views/concluidos.html',controller:'closedController'})
             .when('/newTema/:cid',{templateUrl:'views/tema.html',controller:'temaController'})
             .when('/tema/:cid/:pid',{templateUrl:'views/tema.html',controller:'temaController'})
             .otherwise({templateUrl:'views/dashboard.html',controller:'dashboardController'});
@@ -20,8 +22,8 @@ app.controller('mainController',function($scope,$http){
         $scope.clients = answer.data;
     });
     if(sessionStorage.userData){
-        $scope.tipo = JSON.parse(sessionStorage.userData).tipo
-        $scope.nome = JSON.parse(sessionStorage.userData).nome
+        $scope.tipo = JSON.parse(sessionStorage.userData).type;
+        $scope.nome = JSON.parse(sessionStorage.userData).nome;
     }
     $scope.logout = function(){
         window.sessionStorage.clear();

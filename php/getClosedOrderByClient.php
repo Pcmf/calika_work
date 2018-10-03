@@ -6,16 +6,16 @@
  * and open the template in the editor.
  */
 require_once 'openCon.php';
-$data = file_get_contents("php://input");
-$dt = json_decode($data);
-$clt = $dt->params;
+$clt = file_get_contents("php://input");
+
+
 
 $resp = array();
 
 $query = sprintf("SELECT P.*, S.situacao AS status, C.codigo FROM pedido P "
         . " JOIN cliente C ON C.id = P.clienteID "
         . " JOIN situacao S ON P.situacao = S.id "
-        . " WHERE P.clienteId = %s AND P.situacao<6",$clt);
+        . " WHERE P.clienteId = %s AND P.situacao>=6",$clt);
 
 $result = mysqli_query($con,$query);
 if ($result){

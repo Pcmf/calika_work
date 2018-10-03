@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-angular.module('appCalika').controller('ordersController',function($scope,$http,$routeParams,NgTableParams){
+angular.module('appCalika').controller('ordersController',function($scope,$rootScope,$http,$routeParams,NgTableParams){
+    $rootScope.cid= $routeParams.id;
     $scope.cid = $routeParams.id;
     //Get cliente 
     $http({

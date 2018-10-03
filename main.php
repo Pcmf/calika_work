@@ -44,6 +44,8 @@ and open the template in the editor.
         <script src="js/orders.js" type="text/javascript"></script>
         <script src="js/tema.js" type="text/javascript"></script>
         <script src="js/fillord.js" type="text/javascript"></script>
+        <script src="js/users.js" type="text/javascript"></script>
+        <script src="js/concluidos.js" type="text/javascript"></script>
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
     </head>
     <body ng-controller="mainController">
@@ -82,7 +84,7 @@ and open the template in the editor.
                 </ul>               
                 <!-- Para ver os que já foram fechados -->
                 <ul class="nav navbar-nav right">
-                    <li><a href="#!/closed">Concluidos</a></li>
+                    <li><a href="#!/closed/{{cid}}">Concluidos</a></li>
                 </ul>                 
                 <!-- user log out á direita -->
                 <ul class="nav navbar-nav right">
