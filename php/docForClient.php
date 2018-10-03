@@ -144,6 +144,9 @@ $pdf->Output($doc,'F');
 $path = 'doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
 mysqli_query($con, sprintf("UPDATE pedido SET situacao=2, doc4client='%s' WHERE id=%s ",$path,$pid));
 
+$result001 = mysqli_query($con, sprintf("SELECT * FROM emailservico"));
+if($result001){
+    $row001 = mysqli_fetch_array($result001,MYSQLI_ASSOC);
 
 //Enviar o email
 
@@ -151,15 +154,15 @@ mysqli_query($con, sprintf("UPDATE pedido SET situacao=2, doc4client='%s' WHERE 
 $mail = new PHPMailer();
 
 $mail->isSMTP();
-$mail->Host = 'smtp.gmail.com';
+$mail->Host = $row001['host'];
 $mail->SMTPAuth = true;
-$mail->Username = 'pedroferreirs2005@gmail.com';
-$mail->Password = 'pcmf3315';
+$mail->Username = $row001['email'];
+$mail->Password = $row001['pass'];
 $mail->SMTPSecure = 'tls';
 
 
-$mail->From =  'pedroferreirs2005@gmail.com';
-$mail->addAddress('pedroferreira2005@gmail.com');
+$mail->From = $row001['email'];
+$mail->addAddress($row001['emaildestino']);
 
 
 $mail->Subject = 'Folha do pedido. Cliente: '.$row0['cnome'].'  Tema: '.$row0['tema'];
@@ -178,7 +181,9 @@ if(!$mail->send()){
     //return 'Mensagem enviada com sucesso.';
 }
 
-
+} else {
+    echo "ERRO! O email de serviço não está configurado!";
+}
 
 
 
