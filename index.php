@@ -7,8 +7,7 @@ and open the template in the editor.
 <html ng-app="appCalika">
     <head>
         <meta charset="UTF-8">
-        <title>BackOffice</title>
-        
+        <title>Back Office - Calika</title>
         <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
         
         <meta name="viewport" content="width=device-width, initial-scale=1">        
@@ -39,50 +38,58 @@ and open the template in the editor.
         <script src="js/fillord.js" type="text/javascript"></script>
         <link href="css/css.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body ng-controller="mainController">
-        <nav class="navbar navbar-inverse">
-          <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">CALIKA</a>
+    <body ng-controller="loginCntrl">
+        <div class="container text-center">
+            <div class="imagemCentral">
+                <img src="../Calika/img/header.png" alt="logotipo">
+            </div>
+            <br/><br/><br/><br/>
+            <div class="row">
+            <div class="col-xs-1 col-sm-4">&nbsp;</div>
+            <div class="container col-xs-12 col-sm-4" style="margin: auto">
+                <div class="well well-lg">
+                    <form >
+                          <div class="col-xs-12 text-center">
+                          <label class="col-xs-5 text-right text-primary" for="userName">Utilizador: </label>
+                          <div class="form-group col-xs-4">
+                              <input style="min-width:100px" type="text" class="form-control" ng-model="u.userName" placeholder="utilizador" required="true"/>
+                          </div>
+                          <div class="col-xs-3">&nbsp;</div>
+                          </div>
+                          <br/><br/>
+                          <div class="col-xs-12">
+                          <label class="col-xs-5 text-right text-primary"  for="pwd">Password:</label>
+                          <div class="form-group col-xs-4">
+                              <input style="min-width:100px" type="password" class="form-control" ng-model="u.pwd" placeholder="senha" required="true"/>
+                          </div>
+                          <div class="col-xs-3">&nbsp;</div>
+                          </div>
+                        
+                        <div class="row text-center" ng-show="!validUser">
+                        <button type="submit" ng-click="login(u)"  class="btn btn-success btn-lg">Validar</button>
+                            <h4 class="text-danger">{{error}}</h4>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-xs-1 col-sm-4">&nbsp;</div>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                  <!--Configurações-->
-                <li></li>
-                <!--Manutenção-->
-                <li class="dropdown">
-                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manutenção <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#!/client">Clientes</a></li>
-                    <li><a href="#!/config/">Configurações</a></li>
-                  </ul>
-                </li>
-                  
-                </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
-        <!--Main View-->
-        <div ng-view=""></div>
+
+
+        </div>
+
+
         
         <!--Footer-->
         <footer class="navbar navbar-fixed-bottom bg-info" style="padding-top: 15px;">
             <div class="container text-center">
                 <em>Copyright <span class="fa fa-copyright"></span>
                     2017 - Calika Baby. All rights reserved. Design by 
-                    <a href="pedroferreira2005@gmail.com" target="_blank">Pcmf</a>
+                    <a>Pcmf</a>
                 </em>
             </div>
         </footer>
-        
     </body>
 </html>

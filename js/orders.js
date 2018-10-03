@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-angular.module('appCalika').controller('ordersController',function($scope,$http,$routeParams,NgTableParams){
+angular.module('appCalika').controller('ordersController',function($scope,$rootScope,$http,$routeParams,NgTableParams){
+    $rootScope.cid= $routeParams.id;
     $scope.cid = $routeParams.id;
     //Get cliente 
     $http({
@@ -22,17 +23,18 @@ angular.module('appCalika').controller('ordersController',function($scope,$http,
     
     //PHP para imprimir folhas de detalhe para pedido - para ser preenchido manualmente
     $scope.docForClient = function(pedido){
-        if(pedido.doc4client){
-            window.open(pedido.doc4client);
-        } else{
+//        if(pedido.doc4client){
+//            window.open(pedido.doc4client);
+//        } else{
             $http({
                 url:'php/docForClient.php',
                 method:'POST',
                 data:pedido.id
             }).then(function(answer){
                 window.open(answer.data);
+                alert(answer.data);
             });
-        }
+//        }
     };
     
     //Print Doc to productio

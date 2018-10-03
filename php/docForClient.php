@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+require_once 'class.phpmailer.php';
+require_once 'class.smtp.php';
 require_once 'fpdf.php';
 require_once 'openCon.php';
 define('EURO',chr(128));
@@ -139,9 +140,49 @@ $doc = '../doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
 $pdf->Output($doc,'F');
 
 }
-$nomeDoc = 'doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
-mysqli_query($con, sprintf("UPDATE pedido SET situacao=2, doc4client='%s' WHERE id=%s ",$nomeDoc,$pid));
-echo 'doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
+
+$path = 'doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
+mysqli_query($con, sprintf("UPDATE pedido SET situacao=2, doc4client='%s' WHERE id=%s ",$path,$pid));
+
+
+//Enviar o email
+
+
+$mail = new PHPMailer();
+
+$mail->isSMTP();
+$mail->Host = 'smtp.gmail.com';
+$mail->SMTPAuth = true;
+$mail->Username = 'pedroferreirs2005@gmail.com';
+$mail->Password = 'pcmf3315';
+$mail->SMTPSecure = 'tls';
+
+
+$mail->From =  'pedroferreirs2005@gmail.com';
+$mail->addAddress('pedroferreira2005@gmail.com');
+
+
+$mail->Subject = 'Folha do pedido. Cliente: '.$row0['cnome'].'  Tema: '.$row0['tema'];
+$mail->isHTML(TRUE);
+$mail->Body = '<h2>A copia do pedido segue em anexo.</h2><br/><br/>  Cumprimentos,<br/><b>  Rui Gomes</b>';
+$mail->WordWrap = 50;
+//$path = '../DocToCliente/DocCliente_'.$row0['clienteId'].'_'.$row0['ano'].'_'.$row0['nome'].'.pdf';
+
+$mail->addAttachment('../'.$path);
+
+
+if(!$mail->send()){
+    echo 'Erro no envio! Mailer error: '.$mail->ErrorInfo;
+} else { 
+    echo 'doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
+    //return 'Mensagem enviada com sucesso.';
+}
+
+
+
+
+
+
 
 
 
