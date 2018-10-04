@@ -35,19 +35,19 @@
                 <form>
                     <h3 class="text-center text-primary">{{i.id}}</h3>
 
-                    <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                    <div class="form-group col-xs-6 col-sm-3 col-md-2">
                         <label>Nome</label>
                         <input class="form-control" type="text" ng-model="i.nome">
                     </div>
-                    <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                    <div class="form-group col-xs-6 col-sm-3 col-md-2">
                         <label>Username</label>
                         <input class="form-control" type="text" ng-model="i.username">
                     </div>
-                    <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                    <div class="form-group col-xs-6 col-sm-4 col-md-2">
                         <label>Password</label>
                         <input class="form-control" type="text" ng-model="i.password">
                     </div>
-                    <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                    <div class="form-group col-xs-6 col-sm-4 col-md-2">
                         <label>Tipo</label>
                         <select class="form-control" ng-model="i.type">
                             <option></option>
@@ -58,7 +58,7 @@
 
                     <br/>
                     <div class="row text-center">
-                        <div class="col-xs-12">
+                        <div class="">
                             <button class="btn btn-success" ng-click="saveUser(i)">Guardar</button>
                             <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
                             <button class="btn btn-danger" ng-click="removeUser(i)">Remover</button>
