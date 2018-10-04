@@ -38,7 +38,8 @@ if($result0){
             $pdf->SetFont('Times','',10);
             $pdf->MultiCell(0,8,utf8_decode($row0['cnome']));
             $pdf->MultiCell(0,6,'Tema: '.utf8_decode($row0['tema']).'  Modelo: '.utf8_decode($row['nome']));
-            $pdf->MultiCell(0,6,'Referencia: '.utf8_decode($row['refinterna']));
+            $pdf->MultiCell(0,6,'Referencia do Cliente: '.utf8_decode($row['refcliente']));            
+            $pdf->MultiCell(0,6,'Referencia Interna: '.utf8_decode($row['refinterna']));
             
             
             //Imagem principal - Verificar se existem mais imagens

@@ -31,43 +31,39 @@
             </table>
             <br/><br/>
             <div ng-show="edit" class="row bg-info">
-                <div class="container">
                 <form>
-                    <h3 class="text-center text-primary">{{i.id}}</h3>
+                    <div class="col-xs-12">
+                        <h3 class="text-center text-primary">{{i.id}}</h3>
 
-                    <div class="form-group col-xs-6 col-sm-3 col-md-2">
-                        <label>Nome</label>
-                        <input class="form-control" type="text" ng-model="i.nome">
-                    </div>
-                    <div class="form-group col-xs-6 col-sm-3 col-md-2">
-                        <label>Username</label>
-                        <input class="form-control" type="text" ng-model="i.username">
-                    </div>
-                    <div class="form-group col-xs-6 col-sm-4 col-md-2">
-                        <label>Password</label>
-                        <input class="form-control" type="text" ng-model="i.password">
-                    </div>
-                    <div class="form-group col-xs-6 col-sm-4 col-md-2">
-                        <label>Tipo</label>
-                        <select class="form-control" ng-model="i.type">
-                            <option></option>
-                            <option value="0" ng-selected="i.type==0">Administrador</option>
-                            <option value="1" ng-selected="i.type==1">Utilizador</option>
-                        </select>
+                        <div class="form-group col-xs-6 col-sm-3 col-md-3">
+                            <label>Nome</label>
+                            <input class="form-control" type="text" ng-model="i.nome">
+                        </div>
+                        <div class="form-group col-xs-6 col-sm-3 col-md-3">
+                            <label>Username</label>
+                            <input class="form-control" type="text" ng-model="i.username">
+                        </div>
+                        <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                            <label>Password</label>
+                            <input class="form-control" type="text" ng-model="i.password">
+                        </div>
+                        <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                            <label>Tipo</label>
+                            <select class="form-control" ng-model="i.type">
+                                <option></option>
+                                <option value="0" ng-selected="i.type==0">Administrador</option>
+                                <option value="1" ng-selected="i.type==1">Utilizador</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <br/>
-                    <div class="row text-center">
-                        <div class="">
+                    <div class="col-xs-12 text-center">
                             <button class="btn btn-success" ng-click="saveUser(i)">Guardar</button>
                             <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
                             <button class="btn btn-danger" ng-click="removeUser(i)">Remover</button>
-                        </div>
                     </div>  
                 </form>          
-                </div>
             </div>
-            <br/><br/>
         </div>
         <!-- Configurar dados do email -->
         <div class="col-sm-4">

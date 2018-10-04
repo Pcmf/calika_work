@@ -41,7 +41,8 @@ if($result0){
             $pdf->Ln(1);
             $pdf->SetFont('Times','',10);
             $pdf->MultiCell(0,6,'  Modelo: '.utf8_decode($row['nome']));
-            $pdf->MultiCell(0,6,'Referencia: '.utf8_decode($row['refinterna']));
+            $pdf->MultiCell(0,6,'Referencia do Cliente: '.utf8_decode($row['refcliente']));
+            $pdf->MultiCell(0,6,'Referencia Interna: '.utf8_decode($row['refinterna']));
             $pdf->MultiCell(0,7,utf8_decode('Preço: '.$row['preco'].' Eur'));
             $pdf->MultiCell(0, 6, date('d-m-Y'));
             
