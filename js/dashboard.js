@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-angular.module('appCalika').controller('dashboardController',function($scope,$http){
+angular.module('appCalika').controller('dashboardController',function($scope,$http,$rootScope){
     
+    $rootScope.cid = null;
     $http({
         url:'php/dashboard.php',
         method:'GET',

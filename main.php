@@ -97,7 +97,7 @@ and open the template in the editor.
         </nav>
         <!--Main View-->
         <div ng-view=""></div>
-        
+        <h3>&nbsp;</h3>
         <!--Footer-->
         <footer class="navbar navbar-fixed-bottom bg-info" style="padding-top: 15px;">
             <div class="container text-center">
