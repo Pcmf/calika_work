@@ -22,7 +22,7 @@ app.controller('mainController',function($scope,$http){
         $scope.clients = answer.data;
     });
     if(sessionStorage.userData){
-        $scope.tipo = JSON.parse(sessionStorage.userData).tipo;
+        $scope.tipo = JSON.parse(sessionStorage.userData).type;
         $scope.nome = JSON.parse(sessionStorage.userData).nome;
     }
     $scope.logout = function(){
