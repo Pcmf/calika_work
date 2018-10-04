@@ -10,7 +10,7 @@ require_once 'openCon.php';
 $json = file_get_contents("php://input");
 $modelo = json_decode($json);
 
-
+!isset($modelo->refcliente)?$modelo->refcliente='':null;
 !isset($modelo->preco)?$modelo->preco=0:null;
 !isset($modelo->escala->id)?$escala=0:$escala=$modelo->escala->id;
 //
@@ -18,9 +18,9 @@ $modelo = json_decode($json);
 //Grava modelo ou atualiza(?)
 
 
-    $query = sprintf("UPDATE modelo SET  descricao='%s',mainimg='%s', imagens='%s',preco=%s,escala=%s "
+    $query = sprintf("UPDATE modelo SET  refcliente='%s', descricao='%s',mainimg='%s', imagens='%s',preco=%s,escala=%s "
             . " WHERE id=%s"
-            ,$modelo->descricao,$modelo->mainimg, json_encode($modelo->imagens),$modelo->preco,$escala,$modelo->id);
+            ,$modelo->refcliente,$modelo->descricao,$modelo->mainimg, json_encode($modelo->imagens),$modelo->preco,$escala,$modelo->id);
 		
 		$result = mysqli_query($con,$query);
 		if(!$result){

@@ -54,10 +54,11 @@
                 <thead>
                     <tr class="bg-info">
                         <th>{{clt.codigo}}{{pedido.ano | limitTo:-2}}{{pedido.refInterna}}</th>
-                        <th colspan="3" class="text-left">{{pedido.refCliente}}</th>
+                        <th colspan="5" class="text-left">{{pedido.refCliente}}</th>
                     </tr>
                     <tr>
                         <th>Ref</th>
+                        <th>Ref do Cliente</th>
                         <th>Artigo</th>
                         <th>Imagem</th>
                         <th>Ações</th>
@@ -66,6 +67,7 @@
                 <tbody>
                     <tr ng-repeat="m in modelos">
                         <td>{{m.refinterna}}</td>
+                        <td>{{m.refcliente}}</td>                        
                         <td>{{m.nome}}</td>
                         <td><img class="imgSmall" ng-src="img/{{m.pasta}}/{{m.mainimg}}" alt="Modelo"/></td>
                         <td>
@@ -97,8 +99,8 @@
 </div>
 
 
-<!-- Modal para adicionar um MODELO -->
-<script type="text/ng-template" id="modalAddModel2.html" ng-controller="modalInstanceAddModel2"> 
+<!-- Modal para adicionar um MODELO  -->
+<script type="text/ng-template" id="modalAddModel2.html" ng-controller="modalInstanceAddModel2">
     <div class="modal-header">
         <h3 class="modal-title text-center">Novo Modelo<span class="closeModal" ng-click="closeModal()">X</span></h3>
         <h4 class="modal-title">Tema: <span class="text-primary">{{tema.nome}}</span>
@@ -116,6 +118,10 @@
                         <label>Referencia</label>
                         <input class="form-control" type="text" ng-model="i.refinterna" readonly>
                     </div>
+                    <div class="form-group">
+                        <label>Referencia do Cliente <small class="text-info">opcional</small></label>
+                        <input class="form-control" type="text" ng-model="i.refcliente">
+                    </div>                    
                     <div class="form-group">
                         <label>Artigo<i class="text-danger">*</i></label>
                         <select class="form-control" ng-model="i.a" ng-options="a.nome for a in artigos track by a.id" ng-change="testFields()">
@@ -183,6 +189,10 @@
                         <label>Referencia</label>
                         <input class="form-control" type="text" ng-model="i.refinterna" readonly>
                     </div>
+                    <div class="form-group">
+                        <label>Referencia do Cliente <small class="text-info">opcional</small></label>
+                        <input class="form-control" type="text" ng-model="i.refcliente">
+                    </div>                                 
                     <div class="form-group">
                         <label>Artigo</label>
                         <input class="form-control" type="text" ng-model="i.artigo.nome" readonly />

@@ -17,9 +17,9 @@ $artigo = $modelo->a;
 $resp = array();
 //Grava modelo ou atualiza(?)
 
-    $query = sprintf("INSERT INTO modelo(ano,refinterna,pedido,artigo,pasta,mainimg,descricao,preco,escala)"
-            . " VALUES(%s,'%s',%s,%s,'%s','%s','%s',%s,%s)"
-           ,$parm->ano,$modelo->refinterna,$parm->temaId,$artigo->id,$modelo->folder,$modelo->mainimg,
+    $query = sprintf("INSERT INTO modelo(ano,refinterna,refcliente,pedido,artigo,pasta,mainimg,descricao,preco,escala)"
+            . " VALUES(%s,'%s','%s',%s,%s,'%s','%s','%s',%s,%s)"
+           ,$parm->ano,$modelo->refinterna,$modelo->refcliente,$parm->temaId,$artigo->id,$modelo->folder,$modelo->mainimg,
            $modelo->descricao, $modelo->preco,$escala);
 	
     $result = mysqli_query($con,$query);
