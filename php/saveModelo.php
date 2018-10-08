@@ -11,6 +11,7 @@ $parm = json_decode($data);
 $modelo = $parm->modelo;
 $artigo = $modelo->a;
 
+!isset($modelo->refinterna) ? $modelo->refinterna='' : null;
 !isset($modelo->preco)?$modelo->preco=0:null;
 !isset($modelo->escala->id)?$escala=0:$escala=$modelo->escala->id;
 //
