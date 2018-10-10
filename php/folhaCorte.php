@@ -158,7 +158,7 @@ if($result0){
             $pdf->Ln(10);
             $pdf->MultiCell(0, 8, utf8_decode('Observações'));
             $pdf->Ln(1);
-            $pdf->MultiCell(180, 4, utf8_decode($row['obscliente']),1, 'L', false);
+            $pdf->MultiCell(180, 6, utf8_decode($row['obscliente']),1, 'L', false);
             
     //Insere uma quebra de pagina para imprimir as imagens no verso
             $pdf->AddPage();
