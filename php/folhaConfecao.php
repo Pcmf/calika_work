@@ -29,6 +29,9 @@ if($result0){
 // Para cada modelo cria uma pagina
             $pdf->AddPage();
 
+  //            //Imagem principal - Verificar se existem mais imagens
+            $imagens = json_decode($row['imagens']);        
+            
             //Criar cabeçalho
             $pdf->Image('../../calika/img/'.$row0['folder'].'/'.$row0['imagem'], 10,8 ,0,15);
             $pdf->Image('../../calika/img/'.$row0['pasta'].'/'.$row0['logo'], 160,8 ,25);
@@ -42,17 +45,54 @@ if($result0){
             $pdf->MultiCell(0,6,'Referencia Interna: '.utf8_decode($row['refinterna']));
             
             
-            //Imagem principal - Verificar se existem mais imagens
-            //Gerir o tamanho de acordo com a quantidade de imagens existentes
-            $imagens = json_decode($row['imagens']);
-            if(sizeof($imagens)>=0){
+            //IMAGENS NA 1ª PAGINA
+            if(sizeof($imagens)==0){
                 $y = $pdf->GetY();
                 $pdf->SetY($y+10);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 0,40);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 0, 120);
+            }   
+            if(sizeof($imagens)==1){
+                $y = $pdf->GetY();
+                $pdf->SetY($y+10);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 0, 120);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[0], 10, $y+140, 0, 70);
             }
+            if(sizeof($imagens)==2){
+                $y = $pdf->GetY();
+                $pdf->SetY($y+10);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 0,120);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[0], 10, $y+140, 0, 70);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[1], 100, $y+140, 0, 70);
+            }
+            if(sizeof($imagens)==3){
+                $y = $pdf->GetY();
+                $pdf->SetY($y+10);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 0,120);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[0], 10, $y+140, 0, 45);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[1], 100, $y+140, 0, 45);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[2], 10, $y+185, 0, 45);
+            } 
+            if(sizeof($imagens)>=4){
+                $y = $pdf->GetY();
+                $pdf->SetY($y+10);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 0, 120);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[0], 10, $y+140, 0,45);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[1], 100, $y+140, 0,45);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[2], 10, $y+185, 0,45);
+                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[3], 100, $y+185, 0,45);
+            } 
+            
+            
 
 
-            //Descrição - Abaixo da imagem principal
+
+    
+            
+    //QUEBRA DE PAGINA        
+    //Insere uma quebra de pagina para imprimir as imagens no verso
+            $pdf->AddPage();
+            
+           //Descrição - Abaixo da imagem principal
             $pdf->SetY($y+50);
             //CRIAR A TABELA - Cabeçalho
             $pdf->Ln(8);
@@ -150,44 +190,6 @@ if($result0){
             $pdf->Ln(1);
             $pdf->Cell(180, 30, '',1, 2,'', false);
             
-    //Insere uma quebra de pagina para imprimir as imagens no verso
-            $pdf->AddPage();
-            
-            if(sizeof($imagens)==0){
-                $y = $pdf->GetY();
-                $pdf->SetY($y+10);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 0,120);
-            }   
-            if(sizeof($imagens)==1){
-                $y = $pdf->GetY();
-                $pdf->SetY($y+10);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 85,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[0], 100, $y+10, 85,0);
-            }
-            if(sizeof($imagens)==2){
-                $y = $pdf->GetY();
-                $pdf->SetY($y+10);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 85,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[0], 100, $y+10, 45,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[1], 150, $y+10, 45,0);
-            }
-            if(sizeof($imagens)==3){
-                $y = $pdf->GetY();
-                $pdf->SetY($y+10);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 85,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[0], 100, $y+10, 45,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[1], 150, $y+10, 45,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[2], 100, $y+65, 45,0);
-            } 
-            if(sizeof($imagens)>=4){
-                $y = $pdf->GetY();
-                $pdf->SetY($y+10);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$row['mainimg'], 10, $y+10, 85,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[0], 100, $y+10, 45,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[1], 150, $y+10, 45,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[2], 100, $y+65, 45,0);
-                $pdf->Image('../../calika/img/'.$row['pasta'].'/'.$imagens[3], 150, $y+65, 45,0);
-            } 
             
     
        } //Fim do ciclo principal - pedido/modelo
