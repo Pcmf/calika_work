@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-angular.module('appCalika').controller('ordersController',function($scope,$rootScope,$http,$routeParams,NgTableParams){
+angular.module('appCalika').controller('ordersController',function($scope,$rootScope,$http,$routeParams,NgTableParams, $modal){
     $rootScope.cid= $routeParams.id;
     $scope.cid = $routeParams.id;
     //Get cliente 
@@ -20,21 +20,31 @@ angular.module('appCalika').controller('ordersController',function($scope,$rootS
     //get Orders by client
     getOrders();
     
+    //Open modal to show bigger picture
+    $scope.showBigger = function(folder, imagem){
+        var param = {'folder':folder, 'imagem': imagem}
+        var modalInstance = $modal.open({
+            templateUrl:'modalShowBigger.html',
+            controller: 'modalInstanceShowBigger',
+            size : 'lg',
+            resolve:{ items: function(){
+                    return param;
+                }
+            }
+        }); 
+    }
     
     //PHP para imprimir folhas de detalhe para pedido - para ser preenchido manualmente
     $scope.docForClient = function(pedido){
-//        if(pedido.doc4client){
-//            window.open(pedido.doc4client);
-//        } else{
+
             $http({
                 url:'php/docForClient.php',
                 method:'POST',
                 data:pedido.id
             }).then(function(answer){
                 window.open(answer.data);
-                alert(answer.data);
+             //   alert(answer.data);
             });
-//        }
     };
     
     //Print Doc to productio
@@ -163,4 +173,17 @@ angular.module('appCalika').controller('ordersController',function($scope,$rootS
                });       
         });
     }
+});
+
+
+/**
+ * Modal para ver imagem maior
+ */
+angular.module('appCalika').controller('modalInstanceShowBigger', function($scope,$modalInstance,items){
+        $scope.folder = items.folder;
+        $scope.imagem = items.imagem;
+
+    $scope.closeModal = function(){
+        $modalInstance.dismiss('Cancel');
+    };
 });

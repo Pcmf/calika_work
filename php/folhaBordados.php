@@ -121,7 +121,7 @@ if($result0){
             $pdf->MultiCell(0, 8, utf8_decode('OBSERVAÇÕES'));
             $pdf->Ln(1);
             
-            $pdf->MultiCell(180, 7, utf8_decode($row['obscliente']),1, 'L', false);
+            $pdf->MultiCell(180, 5, utf8_decode($row['obscliente']),1, 'L', false);
            
             //Inserir Tabela 2 Linhas
             $pdf->Ln(10);

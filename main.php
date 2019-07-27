@@ -81,13 +81,13 @@ and open the template in the editor.
                 <!-- Para ir para o inicio -->
                 <ul class="nav navbar-nav right">
                     <li><a href="#">Inicio</a></li>
-                </ul>               
+                <!--</ul>-->               
                 <!-- Para ver os que já foram fechados -->
-                <ul class="nav navbar-nav right">
+                <!--<ul class="nav navbar-nav right">-->
                     <li><a href="#!/closed/{{cid}}">Concluidos</a></li>
                 </ul>                 
                 <!-- user log out á direita -->
-                <ul class="nav navbar-nav right">
+                <ul class="nav navbar-nav mr">
                     <li><a href="" ng-click="logout()"><i class="fa fa-user"></i> {{nome}}</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->

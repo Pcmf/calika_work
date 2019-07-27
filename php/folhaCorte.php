@@ -209,6 +209,6 @@ $doc = '../doc/Corte_'.$row0['clienteId'].'_'.$row0['ano'].'_'.$row0['tema'].'.p
 $pdf->Output($doc,'F');
 
 }
-echo 'doc/Corte_'.$row0['clienteId'].'_'.$row0['ano'].'_'.$row0['tema'].'.pdf';
+echo'doc/Corte_'.$row0['clienteId'].'_'.$row0['ano'].'_'.$row0['tema'].'.pdf';
 
 

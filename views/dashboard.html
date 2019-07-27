@@ -2,8 +2,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4" ng-repeat="c in data">
-            <div class="thumbnail">
+        <div class=""  ng-repeat="c in data">
+            <div class="thumbnail col-xs-12 col-sm-4">
                 <a href="#!/list/{{c.id}}">
                     <img ng-src="img/logos/{{c.logo}}" style="max-height: 100px" alt="Logotipo"/>
                 </a>
@@ -14,6 +14,7 @@
                     </ul>
                 </div>
             </div>
+            <div ng-if="($index+1) % 3 == 0" class="col-xs-12">&nbsp;</div>
         </div>
     </div>
     

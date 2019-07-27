@@ -16,18 +16,15 @@
                 <table ng-table="paramsTable" class="table table-condensed">
                     <thead>
                         <tr>
-                    <!--        <th>Numero
+                           <th>Numero
                                 <a href="" ng-click="sort('ref')" class="sortDir text-danger" ng-class="{ active: isSorted('ref') }">&#x25B2;</a>
                                 <a href="" ng-click="sort('-ref')" class="sortDir text-danger" ng-class="{ active: isSorted('-ref' ) }">&#x25BC;</a>                            
-                            </th>  -->
+                            </th>  
+                            <th>&nbsp;</th>
                             <th>Tema
                                 <a href="" ng-click="sort('tema')" class="sortDir text-danger" ng-class="{ active: isSorted('tema') }">&#x25B2;</a>
                                 <a href="" ng-click="sort('-tema')" class="sortDir text-danger" ng-class="{ active: isSorted('-tema' ) }">&#x25BC;</a>                            
                             </th>                            ´
-                    <!--         <th>Ref do Cliente
-                                <a href="" ng-click="sort('refCliente')" class="sortDir text-danger" ng-class="{ active: isSorted('refCliente') }">&#x25B2;</a>
-                                <a href="" ng-click="sort('-refCliente')" class="sortDir text-danger" ng-class="{ active: isSorted('-refCliente' ) }">&#x25BC;</a>                            
-                            </th> -->
                             <th>Data do Pedido
                                 <a href="" ng-click="sort('dataPedido')" class="sortDir text-danger" ng-class="{ active: isSorted('dataPedido') }">&#x25B2;</a>
                                 <a href="" ng-click="sort('-dataPedido')" class="sortDir text-danger" ng-class="{ active: isSorted('-dataPedido' ) }">&#x25BC;</a>                 
@@ -41,8 +38,9 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="p in $data | orderBy:predicate:reverse | filter: searchFilter"">
-                      <!--      <td>{{p.ref}}</td>  -->
-                      <td class="text-center"><img ng-src="img/{{p.folder}}/{{p.imagem}}" class="imgSmall" alt=""/> - {{p.tema}}  </td>
+                      <th>{{p.ref}}</th> 
+                      <td><img ng-src="img/{{p.folder}}/{{p.imagem}}" class="imgSmall" alt="" ng-click="showBigger(p.folder, p.imagem)"/></td>
+                      <td class="text-center"> {{p.tema}}  </td>
                         <!--     <td>{{p.refCliente}}</td>  -->
                             
                             <td>{{p.dataPedido}}</td>
@@ -74,3 +72,14 @@
 
 
 </div>
+<!-- Modal to show bigger picture  -->
+<script type="text/ng-template" id="modalShowBigger.html" ng-controller="modalInstanceShowBigger"> 
+<div class="modal-body">
+    
+    <img ng-src="img/{{folder}}/{{imagem}}" style="width:90%" alt=""/>
+   
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="closeModal()">Fechar</button>
+</div>
+</script>

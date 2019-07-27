@@ -140,51 +140,53 @@ if($result0){
 $doc = '../doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
 $pdf->Output($doc,'F');
 
-}
+
 
 $path = 'doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
 mysqli_query($con, sprintf("UPDATE pedido SET situacao=2, doc4client='%s' WHERE id=%s ",$path,$pid));
-
-$result001 = mysqli_query($con, sprintf("SELECT * FROM emailservico"));
-if($result001){
-    $row001 = mysqli_fetch_array($result001,MYSQLI_ASSOC);
-
-//Enviar o email
-
-
-$mail = new PHPMailer();
-
-$mail->isSMTP();
-$mail->Host = $row001['host'];
-$mail->SMTPAuth = true;
-$mail->Username = $row001['email'];
-$mail->Password = $row001['pass'];
-$mail->SMTPSecure = 'tls';
-
-
-$mail->From = $row001['email'];
-$mail->addAddress($row001['emaildestino']);
-
-
-$mail->Subject = 'Folha do pedido. Cliente: '.$row0['cnome'].'  Tema: '.$row0['tema'];
-$mail->isHTML(TRUE);
-$mail->Body = '<h2>A copia do pedido segue em anexo.</h2><br/><br/>  Cumprimentos,<br/><b>  Rui Gomes</b>';
-$mail->WordWrap = 50;
-//$path = '../DocToCliente/DocCliente_'.$row0['clienteId'].'_'.$row0['ano'].'_'.$row0['nome'].'.pdf';
-
-$mail->addAttachment('../'.$path);
-
-
-if(!$mail->send()){
-    echo 'Erro no envio! Mailer error: '.$mail->ErrorInfo;
-} else { 
-    echo 'doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
-    //return 'Mensagem enviada com sucesso.';
+echo 'doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
 }
 
-} else {
-    echo "ERRO! O email de serviço não está configurado!";
-}
+//$result001 = mysqli_query($con, sprintf("SELECT * FROM emailservico"));
+//if($result001){
+//    $row001 = mysqli_fetch_array($result001,MYSQLI_ASSOC);
+//
+////Enviar o email
+//
+//
+//$mail = new PHPMailer();
+//
+//$mail->isSMTP();
+//$mail->Host = $row001['host'];
+//$mail->SMTPAuth = true;
+//$mail->Username = $row001['email'];
+//$mail->Password = $row001['pass'];
+//$mail->SMTPSecure = 'tls';
+//
+//
+//$mail->From = $row001['email'];
+//$mail->addAddress($row001['emaildestino']);
+//
+//
+//$mail->Subject = 'Folha do pedido. Cliente: '.$row0['cnome'].'  Tema: '.$row0['tema'];
+//$mail->isHTML(TRUE);
+//$mail->Body = '<h2>A copia do pedido segue em anexo.</h2><br/><br/>  Cumprimentos,<br/><b>  Rui Gomes</b>';
+//$mail->WordWrap = 50;
+////$path = '../DocToCliente/DocCliente_'.$row0['clienteId'].'_'.$row0['ano'].'_'.$row0['nome'].'.pdf';
+//
+//$mail->addAttachment('../'.$path);
+//
+//
+//if(!$mail->send()){
+//    echo 'Erro no envio! Mailer error: '.$mail->ErrorInfo;
+//} else { 
+//    echo 'doc/DC'. date('d-m-Y').'_'.$ref.'.pdf';
+//    //return 'Mensagem enviada com sucesso.';
+//}
+//
+//} else {
+//    echo "ERRO! O email de serviço não está configurado!";
+//}
 
 
 

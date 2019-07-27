@@ -171,27 +171,41 @@ angular.module('appCalika').controller('fillordController',function($scope,$http
     //Finalize Order
     $scope.finalize = function(){
         //Update order status to 5 (Produção)
-
+        var pid = $scope.tema.id;
         $http({
             url:'php/updateStatus.php',
             method:'POST',
-            data:JSON.stringify({'pid':$scope.tema.id,'status':3})
+            data:JSON.stringify({'pid':pid,'status':3})
+        }).then(function(){
+            window.location.replace('#!/list/'+$scope.tema.clienteId);  
+             $http({
+                url:'php/createPdf.php',
+                method:'POST',
+                data:JSON.stringify({'params':pid})
+            }).then(function(answer){
+                console.log(answer.data);
+               
+            });           
         });
+        
 
-        //Open modal to ask if want to send PDF to client
-        var modalInstance = $modal.open({
-            templateUrl: 'modalPDF.html',
-            controller: 'modalInstancePDF',
-            size: 'sm',
-            resolve:{items:function(){
-                    return $scope.detPed.pedido;
-                }
-            }
-        });
-        //data return from modalInstance -  by sizes Object
-        modalInstance.result.then(function() {
-               window.location.replace('#!/list/'+$scope.tema.clienteId); 
-        });
+//
+//        //Open modal to ask if want to send PDF to client
+//        var modalInstance = $modal.open({
+//            templateUrl: 'modalPDF.html',
+//            controller: 'modalInstancePDF',
+//            size: 'sm',
+//            resolve:{items:function(){
+//                    return $scope.detPed.id;
+//                }
+//            }
+//        });
+//        //data return from modalInstance -  by sizes Object
+//        modalInstance.result.then(function() {
+//               window.location.replace('#!/list/'+$scope.tema.clienteId); 
+//        });
+
+
 
         
     };
@@ -456,13 +470,17 @@ angular.module('appCalika').controller('modalInstanceEditElement', function($sco
  * Modal instance to ask if want send PDF to client
  */
 angular.module('appCalika').controller('modalInstancePDF', function($scope,$modalInstance,items,$http){
+    $scope.items = items;
     $scope.sendPDFtoClient = function(){
         $http({
-            url:'php/createPdf_1.php',
+            url:'php/createPdf.php',
             method:'POST',
-            data:{params:items}
+            data:JSON.stringify({'params':items})
+        }).then(function(answer){
+            console.log(answer.data);
+            $modalInstance.close('send');
         });
-        $modalInstance.close('send');
+        
     };
     $scope.dontSend = function(){
         $modalInstance.close('dont');

@@ -17,6 +17,8 @@
                     <thead>
                         <tr>
                             <th>Ano</th>
+                            <th>Referencia</th>
+                            <th>&nbsp;</th>
                             <th>Tema
                                 <a href="" ng-click="sort('tema')" class="sortDir text-danger" ng-class="{ active: isSorted('tema') }">&#x25B2;</a>
                                 <a href="" ng-click="sort('-tema')" class="sortDir text-danger" ng-class="{ active: isSorted('-tema' ) }">&#x25BC;</a>                            
@@ -35,10 +37,13 @@
                     <tbody>
                         <tr ng-repeat="p in $data | orderBy:predicate:reverse | filter: searchFilter">
                             <td>{{p.ano}}</td>
-                            <td class="text-center"><a href="#!/tema/{{cid}}/{{p.id}}"><img ng-src="img/{{p.folder}}/{{p.imagem}}" class="imgSmall" alt=""/> - {{p.tema}} </a> </td>
+                            <td>{{p.ref}}</td>
+                            <td><a href="#!/tema/{{cid}}/{{p.id}}"><img ng-src="img/{{p.folder}}/{{p.imagem}}" class="imgSmall" alt=""/></a></td>
+                            <td>{{p.tema}}</td>
                             <td>{{p.dataPedido}}</td>
                             <td>{{p.dataSituacao}}</td>
                             <td>
+                                <a class="btn btn-info" href="#!/tema/{{cid}}/{{p.id}}" title="Ver tema"><i class="fa fa-eye"> </i></a>
                                 <a ng-show="p.situacao == 6" ng-click="voltarAtras5(p.id)" class="btn btn-warning pull-right" title="Voltar atrás"><span class="fa fa-undo"></span></a>
                             </td>
                         </tr>
@@ -48,6 +53,7 @@
             </div>
             <h3>&nbsp;</h3>
             <div class="col-xs-12 text-center">
+                
                 <button class="btn btn-warning" onclick="window.history.back(-1)"><i class="fa fa-undo"> </i> Voltar</button>
             </div>
         </div>

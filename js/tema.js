@@ -43,8 +43,8 @@ angular.module('appCalika').controller('temaController',function($scope,$http,$r
         $scope.filename = files[0]['name'];
 //        alert(filename);
         ImageTools.resize(files[0], {
-            width: 200, // maximum width
-            height: 200 // maximum height
+            width: 1000, // maximum width
+            height: 1000 // maximum height
         }, function(blob, didItResize) {
             $scope.imgBlob = blob;
             $scope.i.imagem = $scope.filename;
@@ -352,7 +352,45 @@ angular.module('appCalika').controller('modalInstanceEditModel', function ($scop
         }).then(function(answer){
             $scope.i.escala = answer.data;
         });
+        //Select imagem PRINCIPAL
+        $scope.setFiles = function(element) {
+                $scope.$apply(function($scope) {
+              // Turn the FileList object into an Array
+                var files = []
+                for (var i = 0; i < element.files.length; i++) {
+                  files.push(element.files[i])
+                }
+                $scope.filename = files[0]['name'];
+                
+                ImageTools.resize(files[0], {
+                    width: 800, // maximum width
+                    height: 600 // maximum height
+                }, function(blob, didItResize) {
+                    $scope.imgBlob = blob;
+                    $scope.i.mainimg = $scope.filename;
+            //Save Modelo and set it ready to insert the details pictures
+                var parm = {};
+                parm.cltId = items.clt.id;
+                parm.temaId = items.tema.id;
+                parm.pid = items.tema.pid;
+                parm.ano = items.tema.ano;
+                parm.refInt = $scope.i.refinterna;
+                parm.modelo = $scope.i;
 
+                $scope.i.folder = 'modelos';
+                if($scope.filename != ''){
+                    $scope.i.mainimg = $scope.filename;    
+                    var request = new XMLHttpRequest();
+                    request.open("POST", "php/upload-image-modelo.php", true);
+                    var data = new FormData();
+                    data.append("image",$scope.imgBlob,$scope.filename);
+                    request.send(data);
+                                            
+                  $scope.$digest();                         
+                }
+              });
+            });
+        };
        //SELECT DETAILS IMAGES
         $scope.setFilesDetEdit = function(element){
             $scope.$apply(function($scope) {
@@ -419,7 +457,7 @@ angular.module('appCalika').controller('modalInstanceEditModel', function ($scop
  * MODAL instance for ToApproval
  */
 angular.module('appCalika').controller('modalInstanceToApproval', function ($scope,$http, $modalInstance,items) {
-    console.log(items);
+//    console.log(items);
     $scope.criarFolhasCliente = function(){
         $http({
             url:'php/docForClient.php',
